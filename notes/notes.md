@@ -10,7 +10,12 @@ OK
 ### 2
 
 `<em>` OK for italics, or use CSS?
-`<em>Sponge UK</em> Developer Test` in content.json gets escaped rather than parsed as HTML by Handlebars when the template placeholder has double braces (`{{...}}}`), but triple braces do not escape. Seems a bit hard for a one-star question, especially if you've not used handlebars before?
+`<em>Sponge UK</em> Developer Test` in content.json gets escaped rather than parsed as HTML by Handlebars when the template placeholder has double braces (`{{...}}}`), but triple braces do not escape. Seems a bit hard for a one-star question, especially if you've not used handlebars before!
 
 ### 3
 
+capitalisation
+punctuation and spacing
+spelling
+unescaped characters (e.g. & should be &amp;)
+grammar, semantics (steps rather than step)... cheeky
