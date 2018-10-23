@@ -1,8 +1,10 @@
 const connect = require( 'connect' ),
 		serveStatic = require( 'serve-static' );
 
+const port = 3001
+
 connect()
 		.use( serveStatic( '.' ) )
-		.listen( 3000, () => {
-			console.log( 'Server running on port 3000...' );
+		.listen(port, () => {
+			console.log( 'Server running on http://localhost:' + port);
 		} );
