@@ -46,6 +46,17 @@ jQuery(
 			};
 
 			/**
+			 * Populate the about section
+			 */
+			var populateAbout = function() {
+				var strAboutSource = $( '#about-template' ).html(),
+						resAboutTemplate = Handlebars.compile( strAboutSource ),
+						strAboutHTML = resAboutTemplate( resContent.getItem( 'about' ) );
+
+				$( '#about' ).append( strAboutHTML );
+			};
+
+			/**
 			 * Populate the content
 			 */
 			var populateContent = function() {
@@ -93,9 +104,25 @@ jQuery(
 					function() {
 						populateHeader();
 						populateTasks();
+						populateAbout();
 						populateContent();
 						populateDocumentation();
+
+						/* "About Me" accordion */
+						var acc = document.getElementsByClassName("accordionButton");
+						var i;
+						for (i = 0; i < acc.length; i++) {
+							acc[i].addEventListener("click", function() {
+								this.classList.toggle("active");		
+								var panel = this.nextElementSibling;
+								if (panel.style.display === "block") {
+									panel.style.display = "none";
+								} else {
+									panel.style.display = "block";
+								}
+							});
+						}
 					}
 			);
-		}
+		}	
 );

@@ -28,6 +28,7 @@
 <div class="grid-container">
   <section class="grid-50">
     <!-- INSERT YOUR "ABOUT ME" SECTION HERE -->
+    <article id="about"></article>
     <article id="content"></article>
     <noscript>
       <h1>You must enable JavaScript in order to view this page.</h1>
@@ -69,6 +70,30 @@
   </article>
   {{/each}} {{/each}}
 </script>
+
+<script id="about-template" type="text/x-handlebars-template">
+  <h2>{{title}}</h2>
+  <div class="accordion">
+    <button class="accordionButton">About Me</button>
+    <div class="accordionItem">
+      <p>I'm Chris, I'm 43 years old, I live near Oxford and apart from coding, I like playing music!</p>
+    </div>
+    <button class="accordionButton">Photo</button>
+    <div class="accordionItem">
+      <p>This is a photo of me after the woman in the background had been pied in the face and then kissed me</p>
+      <img src="http://kvogel.net/files/pieface.jpg" height="200px" />
+    </div>
+    <button class="accordionButton">Links</button>
+    <div class="accordionItem">
+      <ul>
+        <li><a href="http://chrisjbird.uk/">chrisjbird.uk</a>, my (professional) website</li>
+        <li>Some <a href="http://kvogel.net/bbquiz/">Cognitive Tests</a> I made for the <a href="http://www.ukbiobank.ac.uk/">UK Biobank</a> project whilst working at the <a href="http://www.ndph.ox.ac.uk">Nuffield Department of Public Health</a></li>
+        <li><a href="http://ocpcares.surge.sh">OCP Cares</a>, a <a href="https://en.wikipedia.org/wiki/Progressive_Web_Apps">PWA</a> I made recently as a joke for a friend. It looks best on a phone, I haven't got around to making it responsive yet. For fans of the 1987 film Robocop.</a></li>
+      </ul>
+    </div>
+  </div>
+</script>
+
 
 <!-- Main content Handlebars template -->
 <script id="content-template" type="text/x-handlebars-template">
