@@ -23,59 +23,11 @@ jQuery(
 			 */
 			var resContent = new Content( 'app/data/content.json' );
 
-			/**
-			 * Populate the header
-			 */
-			var populateHeader = function() {
-				var strHeaderSource = $( '#header-template' ).html(),
-						resHeaderTemplate = Handlebars.compile( strHeaderSource ),
-						strHeaderHTML = resHeaderTemplate( resContent.getItem( 'header' ) );
-
-				$( '#header' ).html( strHeaderHTML );
-			};
-
-			/**
-			 * Populate the tasks
-			 */
-			var populateTasks = function() {
-				var strTaskSource = $( '#task-template' ).html(),
-						resTasksTemplate = Handlebars.compile( strTaskSource ),
-						strTasksHTML = resTasksTemplate( resContent.getItem( 'tasks' ) );
-
-				$( '#tasks' ).append( strTasksHTML );
-			};
-
-			/**
-			 * Populate the about section
-			 */
-			var populateAbout = function() {
-				var strAboutSource = $( '#about-template' ).html(),
-						resAboutTemplate = Handlebars.compile( strAboutSource ),
-						strAboutHTML = resAboutTemplate( resContent.getItem( 'about' ) );
-
-				$( '#about' ).append( strAboutHTML );
-			};
-
-			/**
-			 * Populate the content
-			 */
-			var populateContent = function() {
-				var strContentSource = $( '#content-template' ).html(),
-						resContentTemplate = Handlebars.compile( strContentSource ),
-						strContentHTML = resContentTemplate( resContent.getItem( 'content' ) );
-
-				$( '#content' ).append( strContentHTML );
-			};
-
-			/**
-			 * Populate the documentation links
-			 */
-			var populateDocumentation = function() {
-				var strContentSource = $( '#documentation-template' ).html(),
-						resContentTemplate = Handlebars.compile( strContentSource ),
-						strContentHTML = resContentTemplate( resContent.getItem( 'docs' ) );
-
-				$( '#documentation' ).append( strContentHTML );
+			var populate = function(content, contentItem, templateId, targetId) {
+				var templateSource = $(templateId).html(),
+					template = Handlebars.compile(templateSource),
+					html = template(content.getItem(contentItem) );
+				$(targetId).html(html);
 			};
 
 			/**
@@ -102,13 +54,12 @@ jQuery(
 			 */
 			resContent.onReady(
 					function() {
-						populateHeader();
-						populateTasks();
-						populateAbout();
-						populateContent();
-						populateDocumentation();
+						populate(resContent, 'header', 	'#header-template', 		'#header');			// header
+						populate(resContent, 'tasks', 	'#task-template', 			'#tasks');			// tasks
+						populate(resContent, 'about', 	'#about-template', 			'#about');			// about
+						populate(resContent, 'content', '#content-template', 		'#content');		// content
+						populate(resContent, 'docs', 	'#documentation-template', 	'#documentation');	// docs
 
-						/* "About Me" accordion */
 						var acc = document.getElementsByClassName("accordionButton");
 						var i;
 						for (i = 0; i < acc.length; i++) {
