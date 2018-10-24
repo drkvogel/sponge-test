@@ -16,57 +16,78 @@
  =====================================================
 */
 
-(function( window, $ ) {
-			var ContentInstance = function( strDataLocation ) {
-				var objContent = {},
-						arrOnReady = [],
-						blReady = false;
+(function (window, $) {
+	var ContentInstance = function (strDataLocation) {
+		var objContent = {},
+			arrOnReady = [],
+			blReady = false;
+
+		/**
+		 * Get the JSON file
+		 */
+		$.getJSON(strDataLocation,
+			function (objResponse) {
+				objContent = objResponse;
+				blReady = true;
 
 				/**
-				 * Get the JSON file
+				 * Execute all the ready functions once loaded
 				 */
-				$.getJSON( strDataLocation,
-						function( objResponse ) {
-							objContent = objResponse;
-							blReady = true;
-
-							/**
-							 * Execute all the ready functions once loaded
-							 */
-							$.each( arrOnReady,
-									function( intIndex, funDoOnReady ) {
-										funDoOnReady.call();
-									}
-							);
-						}
-				);
-
-				/**
-				 * Register a function to execute once loaded
-				 */
-				this.onReady = function( funDoOnReady ) {
-					if( blReady ) {
+				$.each(arrOnReady,
+					function (intIndex, funDoOnReady) {
 						funDoOnReady.call();
-					} else {
-						arrOnReady.push( funDoOnReady );
 					}
-				};
+				);
+			}
+		);
 
-				/**
-				 * Get an item from the content data
-				 */
-				this.getItem = function( intItem ) {
-					return objContent[intItem];
-				};
+		/**
+		 * Register a function to execute once loaded
+		 */
+		this.onReady = function (funDoOnReady) {
+			if (blReady) {
+				funDoOnReady.call();
+			} else {
+				arrOnReady.push(funDoOnReady);
+			}
+		};
 
-				return this;
-			};
+		/**
+		 * Get an item from the content data
+		 */
+		this.getItem = function (intItem) {
+			return objContent[intItem];
+		};
 
-			/**
-			 * Add the ContentInstance method to the global scope
-			 */
-			window.Content = ContentInstance;
-		})( window, jQuery );
+		/* generic function to populate an element `targetId`, given:
+		 * - a value `contentItem` within the object loaded from JSON
+		 * - a Handlebars template with id `templateId`
+		 * - the targetId
+		 * 
+		 * Todo:
+		 * - check contentItem exists in content
+		 * - check templateId is valid
+		 * - check targetId is valid
+		 */
+		this.populate = function(contentItem, templateId, targetId) {
+			try {
+				var templateSource = $(templateId).html(),
+					template = Handlebars.compile(templateSource),
+					html = template(this.getItem(contentItem));
+				$(targetId).html(html);
+			} catch(err) {
+				console.error('Error: ' + err);
+			}
+		};
+
+		return this;
+	};
+
+	/**
+	 * Add the ContentInstance method to the global scope
+	 */
+	window.Content = ContentInstance;
+})(window, jQuery);
 
 /*
       ,'``.._   ,'``.
