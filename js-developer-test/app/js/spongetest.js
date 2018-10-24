@@ -23,11 +23,26 @@ jQuery(
 			 */
 			var resContent = new Content( 'app/data/content.json' );
 
+			/* generic function to populate an element `targetId`, given:
+			 * - Content object `content`
+			 * - a value `contentItem` within that object
+			 * - a Handlebars template with id `templateId`
+			 * 
+			 * Todo:
+			 * - check content is valid
+			 * - check contentItem exists in content
+			 * - check templateId is valid
+			 * - check targetId is valid
+			 */
 			var populate = function(content, contentItem, templateId, targetId) {
-				var templateSource = $(templateId).html(),
-					template = Handlebars.compile(templateSource),
-					html = template(content.getItem(contentItem) );
-				$(targetId).html(html);
+				try {
+					var templateSource = $(templateId).html(),
+						template = Handlebars.compile(templateSource),
+						html = template(content.getItem(contentItem));
+					$(targetId).html(html);
+				} catch(err) {
+					console.error('Error: ' + err);
+				}
 			};
 
 			/**
@@ -54,6 +69,7 @@ jQuery(
 			 */
 			resContent.onReady(
 					function() {
+						// populate(resContent, 'header', 	'#header-template', 		'#asdf');			// header
 						populate(resContent, 'header', 	'#header-template', 		'#header');			// header
 						populate(resContent, 'tasks', 	'#task-template', 			'#tasks');			// tasks
 						populate(resContent, 'about', 	'#about-template', 			'#about');			// about
